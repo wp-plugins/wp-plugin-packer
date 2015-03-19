@@ -93,12 +93,14 @@ class Wp_Plugin_Packer_Admin {
 
 	}
 
-	public function plugin_packer_menu() {
-		add_options_page( 'WP Plugin Packer', 'WP Plugin Packer', 'manage_options', $this->wp_plugin_packer, function() {
+	public function handle_admin_display() {
 			ob_start();
 			require_once plugin_dir_path( __FILE__ ) . 'partials/wp-plugin-packer-admin-display.php';
 			echo ob_get_clean();
-		} );
+	}
+	
+	public function plugin_packer_menu() {
+		add_options_page( 'WP Plugin Packer', 'WP Plugin Packer', 'manage_options', $this->wp_plugin_packer, array( $this, 'handle_admin_display' ) );
 
 	}
 
